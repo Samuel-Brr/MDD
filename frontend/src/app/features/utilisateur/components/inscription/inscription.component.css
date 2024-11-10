@@ -1,0 +1,80 @@
+.signup-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+}
+
+#logo-mobile {
+  display: none;
+}
+
+#arrow_back{
+  position: absolute;
+  top: 100px;
+  left: 20px;
+  color: black;
+  font-size: xx-large;
+  width: fit-content;
+  height: fit-content;
+  text-decoration: none;
+  font-family: "Cambria Math", serif;
+}
+
+.large-back-arrow {
+
+}
+
+mat-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background-color: white;
+  border: none;
+}
+
+mat-card-header {
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field {
+  width: 100%;
+}
+
+button[type="submit"] {
+  margin-top: 16px;
+  width: fit-content;
+  align-self: center;
+  border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+  app-header {
+    display: none;
+  }
+
+  #arrow_back{
+    position: static;
+    margin-left: 20px;
+  }
+
+  #logo-mobile {
+    display: block;
+    width: 80%;
+    max-width: 400px;
+    margin-inline: auto;
+  }
+
+  mat-card{
+    padding-top: 0;
+  }
+
+  mat-card-header {
+    padding-top: 0;
+  }
+}
