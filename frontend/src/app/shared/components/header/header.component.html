@@ -1,0 +1,42 @@
+<mat-toolbar class="header">
+  <div class="header-content">
+    <!-- Logo -->
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo" />
+    </div>
+
+    @if (isLoggedIn) {
+      <!-- Desktop Menu -->
+      <div class="desktop-menu">
+        <a mat-button routerLink="/articles">Articles</a>
+        <a mat-button routerLink="/themes">Themes</a>
+        <button mat-icon-button>
+          <mat-icon>account_circle</mat-icon>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="mobile-menu-button" mat-icon-button (click)="toggleMobileMenu()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    }
+  </div>
+</mat-toolbar>
+
+@if (isLoggedIn) {
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" [class.show]="isMobileMenuOpen" (click)="closeMobileMenu()">
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" [class.show]="isMobileMenuOpen" (click)="$event.stopPropagation()">
+      <div class="mobile-menu-items">
+        <a mat-button routerLink="/articles" (click)="closeMobileMenu()">Articles</a>
+        <a mat-button routerLink="/themes" (click)="closeMobileMenu()">Themes</a>
+      </div>
+      <div class="mobile-menu-profile">
+        <button mat-icon-button>
+          <mat-icon>account_circle</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+}
