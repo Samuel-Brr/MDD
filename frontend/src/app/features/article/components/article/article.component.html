@@ -1,0 +1,35 @@
+<div class="article-container">
+  <header class="header-actions">
+    <button mat-raised-button color="primary" (click)="createArticle()">
+      <mat-icon>add</mat-icon>
+      Créer un article
+    </button>
+
+    <button mat-button [matMenuTriggerFor]="sortMenu">
+      <mat-icon>sort</mat-icon>
+      Trier par
+    </button>
+    <mat-menu #sortMenu="matMenu">
+      <button mat-menu-item (click)="sortArticles('date')">Date</button>
+      <button mat-menu-item (click)="sortArticles('title')">Titre</button>
+      <button mat-menu-item (click)="sortArticles('author')">Auteur</button>
+    </mat-menu>
+  </header>
+
+  <div class="articles-list">
+    @for (article of articles; track article.id){
+      <mat-card class="article-card">
+        <mat-card-header>
+          <mat-card-title>{{ article.title }}</mat-card-title>
+          <mat-card-subtitle>
+            Par {{ article.author }} le {{ article.date | date:'dd/MM/yyyy' }}
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p>{{ article.content }}</p>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+</div>
