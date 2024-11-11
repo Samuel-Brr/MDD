@@ -5,14 +5,12 @@ import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {RouterLink} from "@angular/router";
-import {HeaderComponent} from "../../../../shared/components/header/header.component";
 import {MatIconModule} from "@angular/material/icon";
 
 @Component({
   selector: 'app-creer-article',
   standalone: true,
     imports: [
-      HeaderComponent,
       ReactiveFormsModule,
       MatCardModule,
       MatInputModule,

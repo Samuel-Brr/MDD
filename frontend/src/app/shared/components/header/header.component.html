@@ -10,7 +10,7 @@
       <div class="desktop-menu">
         <a mat-button routerLink="/articles">Articles</a>
         <a mat-button routerLink="/themes">Themes</a>
-        <button mat-icon-button>
+        <button mat-icon-button (click)="navigateToProfile()">
           <mat-icon>account_circle</mat-icon>
         </button>
       </div>
@@ -33,7 +33,7 @@
         <a mat-button routerLink="/themes" (click)="closeMobileMenu()">Themes</a>
       </div>
       <div class="mobile-menu-profile">
-        <button mat-icon-button>
+        <button mat-icon-button (click)="navigateToProfile()">
           <mat-icon>account_circle</mat-icon>
         </button>
       </div>

@@ -29,7 +29,7 @@ export class HeaderComponent {
     this.isMobileMenuOpen = false;
   }
 
-  navigateToProfile(articleId: number): void {
-    this.router.navigate(['/profile', articleId]);
+  navigateToProfile(): void {
+    this.router.navigate(['/auth/profil']);
   }
 }
