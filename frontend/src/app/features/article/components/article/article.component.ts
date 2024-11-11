@@ -6,7 +6,7 @@ import {MatCardModule} from "@angular/material/card";
 import {DatePipe} from "@angular/common";
 import {HeaderComponent} from "../../../../shared/components/header/header.component";
 
-export interface Article {
+interface Article {
   id: number;
   title: string;
   content: string;

@@ -9,5 +9,13 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./features/utilisateur/utilisateur.module').then(m => m.UtilisateurModule)
+  },
+  {
+    path: 'articles',
+    loadChildren: () => import('./features/article/article.module').then(m => m.ArticleModule)
+  },
+  {
+    path: 'themes',
+    loadChildren: () => import('./features/theme/theme.module').then(m => m.ThemeModule)
   }
 ];

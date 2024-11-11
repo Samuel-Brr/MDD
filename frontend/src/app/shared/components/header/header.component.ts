@@ -18,7 +18,7 @@ import {RouterLink} from "@angular/router";
 })
 export class HeaderComponent {
   isMobileMenuOpen = false;
-  isLoggedIn = false;
+  isLoggedIn = true;
 
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;

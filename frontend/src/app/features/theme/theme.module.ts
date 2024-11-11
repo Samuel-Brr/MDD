@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AbonnementRoutingModule } from './abonnement-routing.module';
+import { ThemeRoutingModule } from './theme-routing.module';
 
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    AbonnementRoutingModule
+    ThemeRoutingModule
   ]
 })
-export class AbonnementModule { }
+export class ThemeModule { }
