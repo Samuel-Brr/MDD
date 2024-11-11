@@ -17,8 +17,14 @@
   </header>
 
   <div class="articles-list">
-    @for (article of articles; track article.id){
-      <mat-card class="article-card">
+    @for (article of articles; track article.id) {
+      <mat-card
+        class="article-card"
+        (click)="navigateToArticle(article.id)"
+        [attr.aria-label]="'Read article: ' + article.title"
+        tabindex="0"
+        role="link"
+      >
         <mat-card-header>
           <mat-card-title>{{ article.title }}</mat-card-title>
           <mat-card-subtitle>

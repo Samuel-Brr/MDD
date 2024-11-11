@@ -1,0 +1,40 @@
+<header>
+  <a id="arrow_back" routerLink="/">←</a>
+  <p>{{ article.title }}</p>
+</header>
+<main class="article-container">
+  <div class="article-subtitle">
+    <span>{{ article.date | date:'dd/MM/yyyy' }}</span>
+    <span>{{ article.author }}</span>
+    <span>{{ article.theme }}</span>
+  </div>
+  <div class="article-content">
+    <p>{{ article.content }}</p>
+  </div>
+  <hr>
+  <div class="comments">
+    <p>Commentaires</p>
+    @for (comment of article.comments; track comment.id) {
+      <div class="comment">
+        <span>{{ comment.author }}</span>
+        <p class="comment-content">{{ comment.content }}</p>
+      </div>
+    }
+    <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Ecrivez ici votre commentaire</mat-label>
+        <input matInput formControlName="comment">
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="clickEvent($event)"
+        >
+          <mat-icon>send</mat-icon>
+        </button>
+      </mat-form-field>
+      <button mat-icon-button color="primary" type="submit" [disabled]="commentForm.invalid">
+        <mat-icon>send</mat-icon>
+      </button>
+    </form>
+  </div>
+</main>

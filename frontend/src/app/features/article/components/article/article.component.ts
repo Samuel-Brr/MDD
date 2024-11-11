@@ -1,18 +1,13 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {DatePipe} from "@angular/common";
 import {HeaderComponent} from "../../../../shared/components/header/header.component";
-
-interface Article {
-  id: number;
-  title: string;
-  content: string;
-  author: string;
-  date: Date;
-}
+import {Article} from "../../../../shared/models/article-model";
+import {I_Comment} from "../../../../shared/models/comment-model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-article',
@@ -26,35 +21,49 @@ interface Article {
   styleUrl: './article.component.css'
 })
 export class ArticleComponent {
+  private router = inject(Router);
 // Sample data - would normally come from a service
+  comment: I_Comment = {
+    id: 1,
+    content: 'This is a comment',
+    author: 'Jane Doe'
+  }
   articles: Article[] = [
     {
       id: 1,
       title: 'First Article',
       content: 'This is the content of the first article...',
       author: 'John Doe',
-      date: new Date()
+      date: new Date(),
+      theme: "web dev",
+      comments: [this.comment]
     },
     {
       id: 2,
       title: 'First Article',
       content: 'This is the content of the first article...',
       author: 'John Doe',
-      date: new Date()
+      date: new Date(),
+      theme: "web dev",
+      comments: [this.comment]
     },
     {
       id: 3,
       title: 'First Article',
       content: 'This is the content of the first article...',
       author: 'John Doe',
-      date: new Date()
+      date: new Date(),
+      theme: "web dev",
+      comments: [this.comment]
     },
     {
       id: 4,
       title: 'First Article',
       content: 'This is the content of the first article...',
       author: 'John Doe',
-      date: new Date()
+      date: new Date(),
+      theme: "web dev",
+      comments: [this.comment]
     }
     // Add more sample articles...
   ];
@@ -67,5 +76,9 @@ export class ArticleComponent {
   sortArticles(criteria: string): void {
     // Implement sorting logic
     console.log(`Sorting by ${criteria}...`);
+  }
+
+  navigateToArticle(articleId: number): void {
+    this.router.navigate(['/articles/detail', articleId]);
   }
 }
