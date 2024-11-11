@@ -22,6 +22,7 @@ import {Router} from "@angular/router";
 })
 export class ArticleComponent {
   private router = inject(Router);
+
 // Sample data - would normally come from a service
   comment: I_Comment = {
     id: 1,
@@ -68,9 +69,8 @@ export class ArticleComponent {
     // Add more sample articles...
   ];
 
-  createArticle(): void {
-    // Implement article creation logic
-    console.log('Creating new article...');
+  navigateToCreerArticle(): void {
+    this.router.navigate(['/articles/creer']);
   }
 
   sortArticles(criteria: string): void {

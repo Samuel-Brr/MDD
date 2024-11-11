@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -19,6 +19,7 @@ import {RouterLink} from "@angular/router";
 export class HeaderComponent {
   isMobileMenuOpen = false;
   isLoggedIn = true;
+  private router = inject(Router);
 
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
@@ -26,5 +27,9 @@ export class HeaderComponent {
 
   closeMobileMenu() {
     this.isMobileMenuOpen = false;
+  }
+
+  navigateToProfile(articleId: number): void {
+    this.router.navigate(['/profile', articleId]);
   }
 }

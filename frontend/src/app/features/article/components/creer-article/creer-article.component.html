@@ -1,0 +1,52 @@
+<div id="arrow-wrapper">
+  <a id="arrow_back" class="large-back-arrow" routerLink="/articles">←</a>
+</div>
+<div class="create-container">
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Créer un nouvel article</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+
+        <!-- Theme field -->
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Sélectionner un thème</mat-label>
+          <input matInput formControlName="theme">
+          @if (createForm.get('theme')?.hasError('required') && createForm.get('theme')?.touched) {
+            <mat-error>
+              Le thème est requis
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Title field -->
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Titre de l'article</mat-label>
+          <input matInput formControlName="title">
+          @if (createForm.get('title')?.hasError('required') && createForm.get('title')?.touched) {
+            <mat-error>
+              Le titre est requis
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Content field -->
+        <mat-form-field id="contentInput" appearance="outline" class="form-field">
+          <mat-label>Contenu de l'article</mat-label>
+          <input matInput formControlName="content">
+          @if (createForm.get('content')?.hasError('required') && createForm.get('content')?.touched) {
+            <mat-error>
+              Le contenu de l'article est requis
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="createForm.invalid">
+          Créer
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

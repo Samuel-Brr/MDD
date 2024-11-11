@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {HeaderComponent} from "../../../../shared/components/header/header.component";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
@@ -12,7 +11,6 @@ import {RouterLink} from "@angular/router";
   selector: 'app-inscription',
   standalone: true,
   imports: [
-    HeaderComponent,
     ReactiveFormsModule,
     MatCardModule,
     MatInputModule,
@@ -26,7 +24,6 @@ import {RouterLink} from "@angular/router";
 })
 export class InscriptionComponent {
   signupForm: FormGroup;
-  hidePassword = true;
 
   constructor(private fb: FormBuilder) {
     this.signupForm = this.fb.group({

@@ -8,6 +8,10 @@
   display: none;
 }
 
+#arrow-wrapper{
+  padding-top: 20px;
+}
+
 #arrow_back{
   position: absolute;
   top: 100px;
