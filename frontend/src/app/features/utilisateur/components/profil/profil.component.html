@@ -41,7 +41,7 @@
         <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
           Sauvegarder
         </button>
-        <button mat-button id="logout-button">
+        <button mat-button id="logout-button" (click)="onLogout()">
           Se déconnecter
         </button>
       </form>

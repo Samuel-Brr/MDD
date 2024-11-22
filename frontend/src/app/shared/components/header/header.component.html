@@ -5,7 +5,7 @@
       <img src="assets/logo.png" alt="Logo" />
     </div>
 
-    @if (isLoggedIn) {
+    @if ($isLoggedIn|async) {
       <!-- Desktop Menu -->
       <div class="desktop-menu">
         <a mat-button routerLink="/articles">Articles</a>
@@ -23,7 +23,7 @@
   </div>
 </mat-toolbar>
 
-@if (isLoggedIn) {
+@if ($isLoggedIn|async) {
   <!-- Mobile Menu Overlay -->
   <div class="mobile-menu-overlay" [class.show]="isMobileMenuOpen" (click)="closeMobileMenu()">
     <!-- Mobile Menu -->

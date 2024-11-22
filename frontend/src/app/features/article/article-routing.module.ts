@@ -6,8 +6,8 @@ import {CreerArticleComponent} from "./components/creer-article/creer-article.co
 
 const routes: Routes = [
   { title: 'Articles', path: '', component: ArticleComponent },
-  { title: 'Articles', path: 'detail/:id', component: ArticleDetailComponent },
-  { title: 'Articles', path: 'creer', component: CreerArticleComponent },
+  { title: 'Articles-Detail', path: 'detail/:id', component: ArticleDetailComponent },
+  { title: 'Articles-Creer', path: 'creer', component: CreerArticleComponent },
 ];
 
 @NgModule({

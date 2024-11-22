@@ -5,8 +5,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {DatePipe} from "@angular/common";
 import {HeaderComponent} from "../../../../shared/components/header/header.component";
-import {Article} from "../../../../shared/models/article-model";
-import {I_Comment} from "../../../../shared/models/comment-model";
+import {Article} from "../../../../shared/interfaces/article.interface";
+import {I_Comment} from "../../../../shared/interfaces/comment.interface";
 import {Router} from "@angular/router";
 
 @Component({

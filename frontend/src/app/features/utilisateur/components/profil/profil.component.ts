@@ -1,12 +1,16 @@
-import {Component} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {Component, inject, OnInit} from '@angular/core';
+import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {MatIconModule} from "@angular/material/icon";
 import {ThemeComponent} from "../../../theme/components/theme/theme.component";
+import {AuthService} from "../../services/auth.service";
+import {Credentials} from "../../interfaces/credentials.interface";
+import {SessionService} from "../../../../shared/services/session.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-profil',
@@ -24,20 +28,49 @@ import {ThemeComponent} from "../../../theme/components/theme/theme.component";
   templateUrl: './profil.component.html',
   styleUrl: './profil.component.css'
 })
-export class ProfilComponent {
-  form: FormGroup;
+export class ProfilComponent implements OnInit {
+  private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
+  private sessionService = inject(SessionService);
+  private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]],
-    });
+  form = this.fb.group({
+    username: ['', [Validators.required, Validators.minLength(3)]],
+    email: ['', [Validators.required, Validators.email]],
+  });
+
+  ngOnInit(): void {
+    this.authService.getCredentials().subscribe({
+      next: (credentials) => {
+        this.form.patchValue(credentials);
+      },
+      error: (error) => {
+        this.snackBar.open('Erreur lors de la récupération des crédentials', 'Fermer', {duration: 3000})
+        console.error(error);
+      }
+    })
   }
 
   onSubmit() {
     if (this.form.valid) {
-      console.log(this.form.value);
-      // Implement your signup logic here
+      const credentials = this.form.value as Credentials;
+      this.authService.updateCredentials(credentials).subscribe({
+        next: () => {
+          this.snackBar.open('Profil mis à jour', 'OK', {duration: 3000});
+        },
+        error: () => this.snackBar.open('Une erreur est survenue', 'Fermer', {duration: 3000})
+      });
     }
+  }
+
+  onLogout() {
+    this.authService.logout().subscribe({
+      next: () => {
+        this.sessionService.logOut();
+        this.router.navigate(['/']);
+      },
+      error: () => this.snackBar.open('Une erreur est survenue lors de la déconnexion', 'Fermer', {duration: 3000})
+    })
   }
 }

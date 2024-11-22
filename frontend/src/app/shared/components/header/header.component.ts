@@ -3,6 +3,8 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {Router, RouterLink} from "@angular/router";
+import {SessionService} from "../../services/session.service";
+import {AsyncPipe} from "@angular/common";
 
 @Component({
   selector: 'app-header',
@@ -11,14 +13,15 @@ import {Router, RouterLink} from "@angular/router";
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
-    RouterLink
+    RouterLink,
+    AsyncPipe
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
   isMobileMenuOpen = false;
-  isLoggedIn = true;
+  $isLoggedIn = inject(SessionService).$isLogged();
   private router = inject(Router);
 
   toggleMobileMenu() {

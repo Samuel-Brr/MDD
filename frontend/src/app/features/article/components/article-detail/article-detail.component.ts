@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {Article} from "../../../../shared/models/article-model";
+import {Article} from "../../../../shared/interfaces/article.interface";
 import {RouterLink} from "@angular/router";
-import {I_Comment} from "../../../../shared/models/comment-model";
+import {I_Comment} from "../../../../shared/interfaces/comment.interface";
 import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
