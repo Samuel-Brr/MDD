@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
@@ -6,6 +6,9 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {RouterLink} from "@angular/router";
 import {MatIconModule} from "@angular/material/icon";
+import {ArticleService} from "../../services/article.service";
+import {Article} from "../../../../shared/interfaces/article.interface";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-creer-article',
@@ -23,20 +26,30 @@ import {MatIconModule} from "@angular/material/icon";
   styleUrl: './creer-article.component.css'
 })
 export class CreerArticleComponent {
-  createForm: FormGroup;
+  fb = inject(FormBuilder);
+  articleService = inject(ArticleService);
+  snackBar = inject(MatSnackBar);
 
-  constructor(private fb: FormBuilder) {
-    this.createForm = this.fb.group({
-      theme: ['', [Validators.required]],
-      title: ['', [Validators.required]],
-      content: ['', [Validators.required]]
-    });
-  }
+  articleForm: FormGroup = this.fb.group({
+    theme: ['', [Validators.required]],
+    titre: ['', [Validators.required]],
+    contenu: ['', [Validators.required]]
+  });
+
 
   onSubmit() {
-    if (this.createForm.valid) {
-      console.log(this.createForm.value);
-      // Implement your signup logic here
+    if (this.articleForm.valid) {
+      console.log(this.articleForm.value);
+      this.articleService.creerArticle(this.articleForm.value as Article).subscribe({
+        next: () => {
+          this.snackBar.open('Article créé !', 'OK', {duration: 3000});
+          this.articleForm.reset();
+        },
+        error: () => {
+          this.snackBar.open('Erreur lors de la création de l\'article', 'Fermer', {duration: 3000});
+          console.error('Error creating article');
+        }
+      });
     }
   }
 }

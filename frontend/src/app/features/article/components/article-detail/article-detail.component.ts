@@ -1,13 +1,15 @@
-import {Component} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Article} from "../../../../shared/interfaces/article.interface";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {I_Comment} from "../../../../shared/interfaces/comment.interface";
-import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {DatePipe} from "@angular/common";
+import {ArticleService} from "../../services/article.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-article-detail',
@@ -24,40 +26,50 @@ import {DatePipe} from "@angular/common";
   templateUrl: './article-detail.component.html',
   styleUrl: './article-detail.component.css'
 })
-export class ArticleDetailComponent {
+export class ArticleDetailComponent implements OnInit {
+  private router = inject(Router);
+  private fb = inject(FormBuilder);
+  private articleService = inject(ArticleService);
+  private snackBar = inject(MatSnackBar);
 
-  comment: I_Comment = {
-    id: 1,
-    content: 'This is a comment',
-    author: 'Jane Doe'
+  private params = this.router.url.split('/');
+
+  commentForm: FormGroup = this.fb.group({
+    contenu: ['', Validators.required],
+  });
+
+  article: Article = {} as any;
+
+  ngOnInit(): void {
+    this.initialiserArticle();
   }
 
-  article: Article = {
-    id: 1,
-    title: 'First Article',
-    content: 'Lorem ipsum odor amet, consectetuer adipiscing elit. Praesent quam elit tempus eleifend tellus mi hendrerit. At metus justo dictum nunc ex sagittis; erat egestas. Habitasse felis facilisis ex diam duis. Curae auctor et pulvinar natoque ex curabitur. Tristique fames fames rutrum nisi metus. Suspendisse ridiculus aptent rutrum facilisis fusce eleifend. Dui vitae dis fusce odio nullam. Id vehicula arcu in malesuada purus a rutrum.',
-    author: 'John Doe',
-    date: new Date(),
-    theme: "web dev",
-    comments: [this.comment]
-  }
-
-  commentForm: FormGroup;
-
-  constructor(private fb: FormBuilder) {
-    this.commentForm = this.fb.group({
-      comment: [''],
-    });
+  private initialiserArticle() {
+    this.articleService.getById(this.params[this.params.length - 1]).subscribe({
+      next: (article: Article) => {
+        this.article = article;
+      },
+      error: () => {
+        console.error('Error fetching article');
+        this.snackBar.open('Erreur lors de la récupération de l\'article', 'Close', {duration: 3000});
+      }
+    })
   }
 
   onSubmit() {
     if (this.commentForm.valid) {
       console.log(this.commentForm.value);
-      // Implement your login logic here
+      this.articleService.ajouterCommentaire(this.article.id, this.commentForm.value as I_Comment).subscribe({
+        next: () => {
+          this.snackBar.open('Commentaire ajouté !', 'OK', {duration: 3000});
+          this.commentForm.reset();
+          this.initialiserArticle();
+        },
+        error: (error) => {
+          this.snackBar.open('Erreur lors de l\'ajout du commentaire', 'Fermer', {duration: 3000});
+          console.error('Error adding comment', error);
+        }
+      })
     }
-  }
-
-  clickEvent($event: MouseEvent) {
-
   }
 }

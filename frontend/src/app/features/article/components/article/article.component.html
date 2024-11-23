@@ -10,9 +10,9 @@
       Trier par
     </button>
     <mat-menu #sortMenu="matMenu">
-      <button mat-menu-item (click)="sortArticles('date')">Date</button>
-      <button mat-menu-item (click)="sortArticles('title')">Titre</button>
-      <button mat-menu-item (click)="sortArticles('author')">Auteur</button>
+      <button mat-menu-item>Date</button>
+      <button mat-menu-item>Titre</button>
+      <button mat-menu-item>Auteur</button>
     </mat-menu>
   </header>
 
@@ -21,19 +21,19 @@
       <mat-card
         class="article-card"
         (click)="navigateToArticle(article.id)"
-        [attr.aria-label]="'Read article: ' + article.title"
+        [attr.aria-label]="'Read article: ' + article.titre"
         tabindex="0"
         role="link"
       >
         <mat-card-header>
-          <mat-card-title>{{ article.title }}</mat-card-title>
+          <mat-card-title>{{ article.titre }}</mat-card-title>
           <mat-card-subtitle>
-            Par {{ article.author }} le {{ article.date | date:'dd/MM/yyyy' }}
+            Par {{ article.auteur }} le {{ article.date | date:'dd/MM/yyyy' }}
           </mat-card-subtitle>
         </mat-card-header>
 
         <mat-card-content>
-          <p>{{ article.content }}</p>
+          <p>{{ article.contenu }}</p>
         </mat-card-content>
       </mat-card>
     }

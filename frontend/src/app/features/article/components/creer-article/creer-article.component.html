@@ -8,13 +8,13 @@
     </mat-card-header>
 
     <mat-card-content>
-      <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
 
         <!-- Theme field -->
         <mat-form-field appearance="outline" class="form-field">
           <mat-label>Sélectionner un thème</mat-label>
           <input matInput formControlName="theme">
-          @if (createForm.get('theme')?.hasError('required') && createForm.get('theme')?.touched) {
+          @if (articleForm.get('theme')?.hasError('required') && articleForm.get('theme')?.touched) {
             <mat-error>
               Le thème est requis
             </mat-error>
@@ -24,8 +24,8 @@
         <!-- Title field -->
         <mat-form-field appearance="outline" class="form-field">
           <mat-label>Titre de l'article</mat-label>
-          <input matInput formControlName="title">
-          @if (createForm.get('title')?.hasError('required') && createForm.get('title')?.touched) {
+          <input matInput formControlName="titre">
+          @if (articleForm.get('titre')?.hasError('required') && articleForm.get('titre')?.touched) {
             <mat-error>
               Le titre est requis
             </mat-error>
@@ -35,15 +35,15 @@
         <!-- Content field -->
         <mat-form-field id="contentInput" appearance="outline" class="form-field">
           <mat-label>Contenu de l'article</mat-label>
-          <input matInput formControlName="content">
-          @if (createForm.get('content')?.hasError('required') && createForm.get('content')?.touched) {
+          <input matInput formControlName="contenu">
+          @if (articleForm.get('contenu')?.hasError('required') && articleForm.get('contenu')?.touched) {
             <mat-error>
               Le contenu de l'article est requis
             </mat-error>
           }
         </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit" [disabled]="createForm.invalid">
+        <button mat-raised-button color="primary" type="submit" [disabled]="articleForm.invalid">
           Créer
         </button>
       </form>
