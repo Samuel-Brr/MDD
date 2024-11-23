@@ -61,7 +61,10 @@ export class ConnexionComponent {
           this.sessionService.logIn(response);
           this.router.navigate(['/articles']);
         },
-        error: () => this.snackbar.open('Erreur lors de la connexion', 'Fermer', {duration: 3000})
+        error: (error) => {
+          console.log(error);
+          this.snackbar.open('Erreur lors de la connexion', 'Fermer', {duration: 3000})
+        }
       });
     }
   }
