@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {Article} from "../../../../shared/interfaces/article.interface";
-import {Router, RouterLink} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {I_Comment} from "../../../../shared/interfaces/comment.interface";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -27,12 +27,10 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrl: './article-detail.component.css'
 })
 export class ArticleDetailComponent implements OnInit {
-  private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private fb = inject(FormBuilder);
   private articleService = inject(ArticleService);
   private snackBar = inject(MatSnackBar);
-
-  private params = this.router.url.split('/');
 
   commentForm: FormGroup = this.fb.group({
     contenu: ['', Validators.required],
@@ -41,16 +39,20 @@ export class ArticleDetailComponent implements OnInit {
   article: Article = {} as any;
 
   ngOnInit(): void {
-    this.initialiserArticle();
+    const articleId = this.route.snapshot.paramMap.get('id');
+    if (articleId) {
+      this.initialiserArticle(articleId);
+    } else {
+      this.snackBar.open('Error: Article ID not found', 'Close', {duration: 3000});
+    }
   }
 
-  private initialiserArticle() {
-    this.articleService.getById(this.params[this.params.length - 1]).subscribe({
+  private initialiserArticle(articleId: string) {
+    this.articleService.getById(articleId).subscribe({
       next: (article: Article) => {
         this.article = article;
       },
       error: () => {
-        console.error('Error fetching article');
         this.snackBar.open('Erreur lors de la récupération de l\'article', 'Close', {duration: 3000});
       }
     })
@@ -63,11 +65,10 @@ export class ArticleDetailComponent implements OnInit {
         next: () => {
           this.snackBar.open('Commentaire ajouté !', 'OK', {duration: 3000});
           this.commentForm.reset();
-          this.initialiserArticle();
+          this.initialiserArticle(this.article.id.toString());
         },
-        error: (error) => {
+        error: () => {
           this.snackBar.open('Erreur lors de l\'ajout du commentaire', 'Fermer', {duration: 3000});
-          console.error('Error adding comment', error);
         }
       })
     }

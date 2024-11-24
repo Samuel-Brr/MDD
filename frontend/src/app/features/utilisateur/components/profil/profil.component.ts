@@ -45,9 +45,8 @@ export class ProfilComponent implements OnInit {
       next: (credentials) => {
         this.form.patchValue(credentials);
       },
-      error: (error) => {
+      error: () => {
         this.snackBar.open('Erreur lors de la récupération des crédentials', 'Fermer', {duration: 3000})
-        console.error(error);
       }
     })
   }

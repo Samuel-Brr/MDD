@@ -39,7 +39,6 @@ export class CreerArticleComponent {
 
   onSubmit() {
     if (this.articleForm.valid) {
-      console.log(this.articleForm.value);
       this.articleService.creerArticle(this.articleForm.value as Article).subscribe({
         next: () => {
           this.snackBar.open('Article créé !', 'OK', {duration: 3000});
@@ -47,7 +46,6 @@ export class CreerArticleComponent {
         },
         error: () => {
           this.snackBar.open('Erreur lors de la création de l\'article', 'Fermer', {duration: 3000});
-          console.error('Error creating article');
         }
       });
     }

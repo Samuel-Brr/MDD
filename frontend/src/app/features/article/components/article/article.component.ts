@@ -34,7 +34,6 @@ export class ArticleComponent implements OnInit {
       next: (articles: Articles) => this.articles = this.sortArticles(articles.articles),
       error: () => {
         this.snackBar.open('Erreur lors du chargement des articles', 'Fermer', {duration: 3000});
-        console.error('Error loading articles');
       }
     })
   }
