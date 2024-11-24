@@ -35,6 +35,8 @@ export class ConnexionComponent {
   private router: Router = inject(Router);
   private sessionService: SessionService = inject(SessionService);
   private snackbar = inject(MatSnackBar);
+  private readonly PASSWORD_PATTERN = '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[^\\w]).{8,}$';
+
 
   loginForm: FormGroup = this.fb.group({
     emailOrUsername: [
@@ -48,7 +50,7 @@ export class ConnexionComponent {
       '',
       [
         Validators.required,
-        Validators.minLength(3)
+        Validators.pattern(this.PASSWORD_PATTERN)
       ]
     ]
   });

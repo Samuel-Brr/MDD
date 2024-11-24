@@ -21,7 +21,7 @@
           }
           @if (signupForm.get('username')?.hasError('minlength')) {
             <mat-error>
-              Le nom d'utilisateur doit contenir au moins 3 caractères
+              Doit contenir au moins 3 caractères
             </mat-error>
           }
         </mat-form-field>
@@ -51,9 +51,9 @@
               Le mot de passe est requis
             </mat-error>
           }
-          @if (signupForm.get('password')?.hasError('minlength')) {
+          @if (signupForm.get('password')?.hasError('pattern') && signupForm.get('password')?.touched) {
             <mat-error>
-              Le mot de passe doit contenir au moins 8 caractères
+              Le format du mot de passe est incorrect
             </mat-error>
           }
         </mat-form-field>

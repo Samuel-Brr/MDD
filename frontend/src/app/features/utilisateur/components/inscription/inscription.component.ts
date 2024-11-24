@@ -30,14 +30,15 @@ export class InscriptionComponent {
   private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
   private snackbar = inject(MatSnackBar);
+  private readonly PASSWORD_PATTERN = '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[^\\w]).{8,}$';
+
 
   signupForm: FormGroup = this.fb.group({
     username: [
       '',
       [
         Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(20)
+        Validators.minLength(3)
       ]
     ],
     email: [
@@ -51,8 +52,7 @@ export class InscriptionComponent {
       '',
       [
         Validators.required,
-        Validators.minLength(8),
-        Validators.maxLength(40)
+        Validators.pattern(this.PASSWORD_PATTERN)
       ]
     ]
   });
