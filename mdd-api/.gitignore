@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Secrets ###
+src/main/resources/application-secret.properties
+src/main/resources/app.key
+src/main/resources/app.pub
