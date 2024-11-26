@@ -1,5 +1,7 @@
 package com.orion.mdd_api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,16 +21,28 @@ public class Commentaire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     private User auteur;
 
     private String contenu;
 
+    @JsonIgnore
+    @ManyToOne
+    private Article article;
+
+    @JsonIgnore
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
+    @JsonIgnore
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @JsonProperty("auteur")
+    public String getAuteurName() {
+        return auteur.getName();
+    }
 }

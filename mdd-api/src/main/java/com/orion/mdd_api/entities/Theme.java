@@ -1,5 +1,7 @@
 package com.orion.mdd_api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,17 +26,26 @@ public class Theme {
 
     private String description;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "abonnements")
     private List<User> abonnes;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "theme")
     private List<Article> articles;
 
+    @JsonIgnore
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
+    @JsonIgnore
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @JsonProperty("abonnes")
+    public List<Long> getAbonnesIds() {
+        return abonnes.stream().map(User::getId).toList();
+    }
 }
