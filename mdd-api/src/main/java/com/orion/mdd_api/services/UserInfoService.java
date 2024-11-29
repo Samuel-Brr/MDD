@@ -1,5 +1,6 @@
 package com.orion.mdd_api.services;
 
+import com.orion.mdd_api.dtos.Credential;
 import com.orion.mdd_api.entities.User;
 import com.orion.mdd_api.repositories.UserRepository;
 import org.slf4j.Logger;
@@ -67,20 +68,13 @@ public class UserInfoService implements UserDetailsService {
         return savedUser.getId();
     }
 
-    /**
-     * Retrieves a user by their ID.
-     *
-     * @param id The ID of the user to retrieve.
-     * @return The User entity.
-     * @throws RuntimeException if the user is not found.
-     */
-    @Transactional(readOnly = true)
-    public User getUserById(Long id) {
-        logger.debug("Attempting to get user by ID: {}", id);
-        return userRepository.findById(id)
-                .orElseThrow(() -> {
-                    logger.warn("User not found with ID: {}", id);
-                    return new RuntimeException("User not found with id: " + id);
-                });
+    @Transactional
+    public Long updateUser(User user, Credential credential) {
+        logger.debug("Attempting to update user: {}", user.getEmail());
+        user.setName(credential.username());
+        user.setEmail(credential.email());
+        User savedUser = userRepository.save(user);
+        logger.info("User added successfully: {}", savedUser.getId());
+        return savedUser.getId();
     }
 }

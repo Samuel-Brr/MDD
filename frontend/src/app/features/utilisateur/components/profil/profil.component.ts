@@ -64,12 +64,7 @@ export class ProfilComponent implements OnInit {
   }
 
   onLogout() {
-    this.authService.logout().subscribe({
-      next: () => {
-        this.sessionService.logOut();
-        this.router.navigate(['/']);
-      },
-      error: () => this.snackBar.open('Une erreur est survenue lors de la déconnexion', 'Fermer', {duration: 3000})
-    })
+    this.sessionService.logOut();
+    this.router.navigate(['/']);
   }
 }

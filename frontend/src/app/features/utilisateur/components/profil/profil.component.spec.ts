@@ -214,20 +214,5 @@ describe('ProfilComponent', () => {
       expect(mockSessionService.logOut).toHaveBeenCalled();
       expect(mockRouter.navigate).toHaveBeenCalledWith(['/']);
     });
-
-    it('should handle logout error', () => {
-      // Arrange
-      mockAuthService.logout.mockReturnValue(throwError(() => new Error()));
-
-      // Act
-      component.onLogout();
-
-      // Assert
-      expect(mockSnackBar.open).toHaveBeenCalledWith(
-        'Une erreur est survenue lors de la déconnexion',
-        'Fermer',
-        { duration: 3000 }
-      );
-    });
   });
 });
