@@ -67,7 +67,7 @@ public class ArticleService {
 
         Theme theme = themeService.getThemeByTitre(articleRecord.theme());
         User user = jwtService.getCurrentUser();
-        Article article = new Article(articleRecord.titre(), articleRecord.contenu());
+        Article article = new Article(articleRecord.titre(), articleRecord.contenu(), user, theme);
         user.addArticle(article);
         theme.addArticle(article);
         Article savedArticle = articleRepository.save(article);
@@ -85,10 +85,10 @@ public class ArticleService {
     @Transactional
     public Long addCommentaire(CommentaireRecord commentaireRecord, Long articleId) {
         logger.debug("Adding new commentaire: {}", commentaireRecord);
-        Commentaire commentaire = new Commentaire(commentaireRecord.contenu());
-        Article article = getArticleById(articleId);
-        article.addCommentaire(commentaire);
         User user = jwtService.getCurrentUser();
+        Article article = getArticleById(articleId);
+        Commentaire commentaire = new Commentaire(commentaireRecord.contenu(), user, article);
+        article.addCommentaire(commentaire);
         user.addCommentaire(commentaire);
         Commentaire savedCommentaire = commentaireRepository.save(commentaire);
         logger.info("Commentaire added successfully with ID: {}", savedCommentaire.getId());

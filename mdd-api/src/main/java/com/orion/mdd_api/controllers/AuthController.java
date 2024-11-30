@@ -2,6 +2,7 @@ package com.orion.mdd_api.controllers;
 
 import com.orion.mdd_api.dtos.Connexion;
 import com.orion.mdd_api.dtos.Credential;
+import com.orion.mdd_api.dtos.CredsAndTokenRecord;
 import com.orion.mdd_api.dtos.Inscription;
 import com.orion.mdd_api.entities.User;
 import com.orion.mdd_api.services.JwtService;
@@ -23,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -135,12 +137,30 @@ public class AuthController {
     })
     @PutMapping(value = "/credentials", produces = MediaType.APPLICATION_JSON_VALUE)
     @SecurityRequirement(name = "Bearer Authentication")
-    public ResponseEntity<Credential> updateCurrentUser(@Valid @RequestBody Credential credential) {
+    public ResponseEntity<?> updateCurrentUser(@Valid @RequestBody Credential credential) {
         try {
             User currentUser = jwtService.getCurrentUser();
+
             userInfoService.updateUser(currentUser, credential);
             logger.info("Updated current user: {}", currentUser.getEmail());
-            return ResponseEntity.ok(credential);
+
+            // Load updated user details
+            UserDetails userDetails = userInfoService.loadUserByUsername(credential.email());
+
+            // Create new authentication with proper user details
+            Authentication newAuth = new UsernamePasswordAuthenticationToken(
+                    userDetails,
+                    userDetails.getPassword(),
+                    userDetails.getAuthorities()
+            );
+
+            String newToken = jwtService.generateToken(newAuth);
+
+            return ResponseEntity.ok(new CredsAndTokenRecord(
+                    credential.username(),
+                    credential.email(),
+                    newToken
+            ));
         } catch (Exception e) {
             logger.error("Error updating current user: {}", e.getMessage());
             throw new RuntimeException(FAILED_TO_UPDATE_CURRENT_USER);

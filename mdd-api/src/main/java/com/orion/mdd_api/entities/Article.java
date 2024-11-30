@@ -3,18 +3,12 @@ package com.orion.mdd_api.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "ARTICLES")
 public class Article {
@@ -51,9 +45,14 @@ public class Article {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public Article(String titre, String contenu) {
+    public Article() {
+    }
+
+    public Article(String titre, String contenu, User user, Theme theme) {
         this.titre = titre;
         this.contenu = contenu;
+        this.auteur = user;
+        this.theme = theme;
     }
 
     @JsonProperty("theme")
@@ -74,4 +73,63 @@ public class Article {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public User getAuteur() {
+        return auteur;
+    }
+
+    public void setAuteur(User auteur) {
+        this.auteur = auteur;
+    }
+
+    public String getContenu() {
+        return contenu;
+    }
+
+    public void setContenu(String contenu) {
+        this.contenu = contenu;
+    }
+
+    public List<Commentaire> getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(List<Commentaire> commentaires) {
+        this.commentaires = commentaires;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }
