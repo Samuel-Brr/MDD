@@ -31,7 +31,7 @@ public class Theme {
     private List<User> abonnes;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "theme")
+    @OneToMany(mappedBy = "theme", cascade = CascadeType.PERSIST)
     private List<Article> articles;
 
     @JsonIgnore
@@ -47,5 +47,9 @@ public class Theme {
     @JsonProperty("abonnes")
     public List<Long> getAbonnesIds() {
         return abonnes.stream().map(User::getId).toList();
+    }
+
+    public void addArticle(Article article) {
+        articles.add(article);
     }
 }

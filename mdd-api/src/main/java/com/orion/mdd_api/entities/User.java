@@ -29,10 +29,10 @@ public class User {
     @JsonIgnore
     private String password;
 
-    @OneToMany(mappedBy = "auteur")
+    @OneToMany(mappedBy = "auteur", cascade = CascadeType.ALL)
     private List<Article> articles;
 
-    @OneToMany(mappedBy = "auteur")
+    @OneToMany(mappedBy = "auteur", cascade = CascadeType.ALL)
     private List<Commentaire> commentaires;
 
     @ManyToMany
@@ -54,5 +54,13 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public void addArticle(Article article) {
+        articles.add(article);
+    }
+
+    public void addCommentaire(Commentaire commentaire) {
+        commentaires.add(commentaire);
     }
 }

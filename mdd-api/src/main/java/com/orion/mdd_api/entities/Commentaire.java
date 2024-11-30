@@ -41,6 +41,10 @@ public class Commentaire {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    public Commentaire(String contenu) {
+        this.contenu = contenu;
+    }
+
     @JsonProperty("auteur")
     public String getAuteurName() {
         return auteur.getName();

@@ -22,4 +22,16 @@ public class ThemeService {
     public List<Theme> getAllThemes() {
         return themeRepository.findAll();
     }
+
+    /**
+     * Retrieves a theme by its ID.
+     *
+     * @param titre The title of the theme to retrieve.
+     * @return The Rental entity.
+     * @throws RuntimeException if the theme is not found.
+     */
+    public Theme getThemeByTitre(String titre) {
+        return themeRepository.findByTitre(titre)
+                .orElseThrow(() -> new RuntimeException("Theme not found with titre: " + titre));
+    }
 }

@@ -37,7 +37,7 @@ public class Article {
     @Lob
     private String contenu;
 
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Commentaire> commentaires;
 
     @JsonIgnore
@@ -50,6 +50,11 @@ public class Article {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    public Article(String titre, String contenu) {
+        this.titre = titre;
+        this.contenu = contenu;
+    }
+
     @JsonProperty("theme")
     public String getThemeTitle() {
         return theme.getTitre();
@@ -58,5 +63,9 @@ public class Article {
     @JsonProperty("auteur")
     public String getAuteurName() {
         return auteur.getName();
+    }
+
+    public void addCommentaire(Commentaire commentaire) {
+        commentaires.add(commentaire);
     }
 }
