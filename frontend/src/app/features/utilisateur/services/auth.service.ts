@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {LoginRequest} from "../interfaces/loginRequest.interface";
 import {SessionInformation} from "../../../shared/interfaces/sessionInformation.interface";
 import {Credentials} from "../interfaces/credentials.interface";
+import {UpdateProfilResponse} from "../../../shared/interfaces/update-profil-response";
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,8 @@ export class AuthService {
     return this.httpClient.get<Credentials>(`${this.pathService}/credentials`);
   }
 
-  public updateCredentials(credentials: Credentials): Observable<void> {
-    return this.httpClient.put<void>(`${this.pathService}/credentials`, credentials);
+  public updateCredentials(credentials: Credentials): Observable<UpdateProfilResponse> {
+    return this.httpClient.put<UpdateProfilResponse>(`${this.pathService}/credentials`, credentials);
   }
 
   public register(registerRequest: RegisterRequest): Observable<void> {

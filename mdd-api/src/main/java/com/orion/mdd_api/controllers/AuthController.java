@@ -1,9 +1,6 @@
 package com.orion.mdd_api.controllers;
 
-import com.orion.mdd_api.dtos.Connexion;
-import com.orion.mdd_api.dtos.Credential;
-import com.orion.mdd_api.dtos.CredsAndTokenRecord;
-import com.orion.mdd_api.dtos.Inscription;
+import com.orion.mdd_api.dtos.*;
 import com.orion.mdd_api.entities.User;
 import com.orion.mdd_api.services.JwtService;
 import com.orion.mdd_api.services.UserInfoService;
@@ -93,8 +90,9 @@ public class AuthController {
             );
             if (authentication.isAuthenticated()) {
                 String token = jwtService.generateToken(authentication);
+                Long id = jwtService.getCurrentUser().getId();
                 logger.info("User logged in successfully: {}", connexionRecord.email());
-                return ResponseEntity.ok(new TokenDto(token));
+                return ResponseEntity.ok(new TokenAndIdRecord(token, id));
             } else {
                 logger.warn("Authentication failed for user: {}", connexionRecord.email());
                 return ResponseEntity.status(401).body("{\"message\": \"error\"}");
@@ -157,6 +155,7 @@ public class AuthController {
             String newToken = jwtService.generateToken(newAuth);
 
             return ResponseEntity.ok(new CredsAndTokenRecord(
+                    currentUser.getId(),
                     credential.username(),
                     credential.email(),
                     newToken

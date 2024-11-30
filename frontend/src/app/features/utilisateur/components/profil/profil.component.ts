@@ -55,7 +55,11 @@ export class ProfilComponent implements OnInit {
     if (this.form.valid) {
       const credentials = this.form.value as Credentials;
       this.authService.updateCredentials(credentials).subscribe({
-        next: () => {
+        next: (res) => {
+          const {token, id} = res;
+          const {username, email} = res
+          this.form.patchValue({username, email});
+          this.sessionService.logIn({token, id});
           this.snackBar.open('Profil mis à jour', 'OK', {duration: 3000});
         },
         error: () => this.snackBar.open('Une erreur est survenue', 'Fermer', {duration: 3000})
