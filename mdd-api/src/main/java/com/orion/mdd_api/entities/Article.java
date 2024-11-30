@@ -18,6 +18,7 @@ import java.util.List;
 @Entity
 @Table(name = "ARTICLES")
 public class Article {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -68,4 +69,9 @@ public class Article {
     public void addCommentaire(Commentaire commentaire) {
         commentaires.add(commentaire);
     }
+
+    public Long getId() {
+        return id;
+    }
+
 }

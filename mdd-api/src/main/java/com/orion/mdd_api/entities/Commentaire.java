@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "COMMENTAIRES")
 public class Commentaire {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -48,5 +49,9 @@ public class Commentaire {
     @JsonProperty("auteur")
     public String getAuteurName() {
         return auteur.getName();
+    }
+
+    public Long getId() {
+        return id;
     }
 }

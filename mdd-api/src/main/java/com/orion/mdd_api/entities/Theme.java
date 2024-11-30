@@ -52,4 +52,8 @@ public class Theme {
     public void addArticle(Article article) {
         articles.add(article);
     }
+
+    public String getTitre() {
+        return titre;
+    }
 }

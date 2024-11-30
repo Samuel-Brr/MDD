@@ -17,6 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "USERS")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -62,5 +63,33 @@ public class User {
 
     public void addCommentaire(Commentaire commentaire) {
         commentaires.add(commentaire);
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
