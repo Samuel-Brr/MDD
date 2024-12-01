@@ -5,6 +5,7 @@ import com.orion.mdd_api.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -85,6 +86,19 @@ public class JwtService {
                 .orElseThrow(() -> {
                     logger.error("User not found for email: {}", userEmail);
                     return new UsernameNotFoundException("User not found for email: " + userEmail);
+                });
+    }
+
+    public User getCurrentUser(Authentication authentication) {
+        if (!(authentication instanceof UsernamePasswordAuthenticationToken usernameAuthToken)) {
+            logger.error("No JWT authentication found in SecurityContext");
+            throw new RuntimeException("No JWT authentication found");
+        }
+        String email = usernameAuthToken.getName();
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> {
+                    logger.error("User not found for email: {}", email);
+                    return new UsernameNotFoundException("User not found for email: " + email);
                 });
     }
 }

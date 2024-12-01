@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Articles} from "../../../shared/interfaces/articles";
 import {Article} from "../../../shared/interfaces/article.interface";
 import {I_Comment} from "../../../shared/interfaces/comment.interface";
+import {SessionService} from "../../../shared/services/session.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,10 @@ import {I_Comment} from "../../../shared/interfaces/comment.interface";
 export class ArticleService {
   private pathService = 'api/articles';
   private httpClient: HttpClient = inject(HttpClient);
+  private userId = inject(SessionService).sessionInformation?.id;
 
   public getArticles(): Observable<Articles> {
-    return this.httpClient.get<Articles>(`${this.pathService}`);
+    return this.httpClient.get<Articles>(`${this.pathService}/user/${this.userId}`);
   }
 
   creerArticle(article: Article): Observable<number>{

@@ -39,7 +39,7 @@ export class ConnexionComponent {
 
 
   loginForm: FormGroup = this.fb.group({
-    emailOrUsername: [
+    email: [
       '',
       [
         Validators.required,

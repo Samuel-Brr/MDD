@@ -15,10 +15,10 @@ export class ThemeService {
   }
 
   public subscribeTheme(themeId: number) {
-    return this.httpClient.post(`${this.pathService}/${themeId}/subscribe`, null);
+    return this.httpClient.post(`${this.pathService}/subscribe/${themeId}`, null);
   }
 
   public unsubscribeTheme(themeId: number) {
-    return this.httpClient.post(`${this.pathService}/${themeId}/unsubscribe`, null);
+    return this.httpClient.post(`${this.pathService}/unsubscribe/${themeId}`, null);
   }
 }

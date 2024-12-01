@@ -52,7 +52,9 @@ public class ArticleService {
      * @return A list of all Article entities.
      */
     public List<Article> getAllArticles() {
-        return articleRepository.findAll();
+        User currentUser = jwtService.getCurrentUser();
+        List<Theme> themes = themeService.getThemesByUser(currentUser);
+        return articleRepository.findByThemeIn(themes);
     }
 
     /**

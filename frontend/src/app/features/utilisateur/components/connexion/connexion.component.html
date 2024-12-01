@@ -14,13 +14,13 @@
         <!-- Email or Username field -->
         <small>Adresse e-mail</small>
         <mat-form-field appearance="outline" class="form-field">
-          <input matInput type="email" formControlName="emailOrUsername">
-          @if (loginForm.get('emailOrUsername')?.hasError('required') && loginForm.get('emailOrUsername')?.touched) {
+          <input matInput type="email" formControlName="email">
+          @if (loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched) {
             <mat-error>
               L'adresse e-mail ou le nom d'utilisateur est requis
             </mat-error>
           }
-          @if (loginForm.get('emailOrUsername')?.hasError('required') && loginForm.get('minLength')?.touched) {
+          @if (loginForm.get('email')?.hasError('required') && loginForm.get('minLength')?.touched) {
             <mat-error>
               Le nom d'utilisateur ou l'e-mail doit contenir au moins 3 caractères
             </mat-error>

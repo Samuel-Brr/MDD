@@ -105,4 +105,12 @@ public class Theme {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public void addSubscriber(User currentUser) {
+        abonnes.add(currentUser);
+    }
+
+    public void removeSubscriber(User currentUser) {
+        abonnes.remove(currentUser);
+    }
 }

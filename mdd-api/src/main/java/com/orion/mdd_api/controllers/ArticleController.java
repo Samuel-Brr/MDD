@@ -47,8 +47,8 @@ public class ArticleController {
                             schema = @Schema(type = "array", implementation = ArticlesRecord.class))),
             @ApiResponse(responseCode = "401", description = "Unauthorized")
     })
-    @GetMapping
-    public ResponseEntity<ArticlesRecord> getAllArticles() {
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<ArticlesRecord> getAllArticlesByUserId(@Valid @PathVariable Long userId) {
         try {
             List<Article> articles = articleService.getAllArticles();
             logger.info("Retrieved {} articles", articles.size());
@@ -88,7 +88,7 @@ public class ArticleController {
             @ApiResponse(responseCode = "404", description = "Article not found")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<Article> getRentalById(@PathVariable Long id) {
+    public ResponseEntity<Article> getArticleById(@PathVariable Long id) {
         try {
             Article article = articleService.getArticleById(id);
             logger.info("Retrieved article with id: {}", id);

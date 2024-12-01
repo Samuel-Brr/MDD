@@ -84,13 +84,14 @@ public class AuthController {
     })
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody Connexion connexionRecord) {
+        logger.info("Beginning of the authentication process for : {}", connexionRecord.email());
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(connexionRecord.email(), connexionRecord.password())
             );
             if (authentication.isAuthenticated()) {
                 String token = jwtService.generateToken(authentication);
-                Long id = jwtService.getCurrentUser().getId();
+                Long id = jwtService.getCurrentUser(authentication).getId();
                 logger.info("User logged in successfully: {}", connexionRecord.email());
                 return ResponseEntity.ok(new TokenAndIdRecord(token, id));
             } else {

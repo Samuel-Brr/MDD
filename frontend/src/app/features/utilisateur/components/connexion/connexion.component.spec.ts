@@ -20,18 +20,13 @@ describe('ConnexionComponent', () => {
 
   // Mock data
   const mockLoginData = {
-    emailOrUsername: 'test@example.com',
+    email: 'test@example.com',
     password: 'TestPassword123!'
   };
 
   const mockSessionInfo: SessionInformation = {
     token: 'mock-token',
-    type: 'Bearer',
     id: 1,
-    username: 'testUser',
-    firstName: 'Test',
-    lastName: 'User',
-    admin: false
   };
 
   beforeEach(async () => {
@@ -78,7 +73,7 @@ describe('ConnexionComponent', () => {
 
   describe('Form Initialization', () => {
     it('should initialize the form with empty fields', () => {
-      expect(component.loginForm.get('emailOrUsername')?.value).toBe('');
+      expect(component.loginForm.get('email')?.value).toBe('');
       expect(component.loginForm.get('password')?.value).toBe('');
     });
 
@@ -89,7 +84,7 @@ describe('ConnexionComponent', () => {
 
   describe('Form Validation', () => {
     it('should validate email format', () => {
-      const emailControl = component.loginForm.get('emailOrUsername');
+      const emailControl = component.loginForm.get('email');
 
       emailControl?.setValue('invalid-email');
       expect(emailControl?.hasError('email')).toBeTruthy();

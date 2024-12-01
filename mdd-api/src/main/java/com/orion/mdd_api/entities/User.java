@@ -134,4 +134,12 @@ public class User {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public void addTheme(Theme theme) {
+        abonnements.add(theme);
+    }
+
+    public void removeTheme(Theme theme) {
+        abonnements.remove(theme);
+    }
 }

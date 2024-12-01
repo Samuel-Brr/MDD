@@ -68,6 +68,13 @@ public class UserInfoService implements UserDetailsService {
         return savedUser.getId();
     }
 
+    /**
+     * Updates an existing user in the system.
+     *
+     * @param user The user to update.
+     * @param credential The credential object containing the updated user details.
+     * @return The ID of the updated user.
+     */
     @Transactional
     public Long updateUser(User user, Credential credential) {
         logger.debug("Attempting to update user: {}", user.getEmail());
