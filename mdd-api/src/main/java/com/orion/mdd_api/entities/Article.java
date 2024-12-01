@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -49,6 +50,7 @@ public class Article {
     }
 
     public Article(String titre, String contenu, User user, Theme theme) {
+        this.commentaires = new ArrayList<>();
         this.titre = titre;
         this.contenu = contenu;
         this.auteur = user;

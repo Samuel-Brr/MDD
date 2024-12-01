@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -39,6 +40,8 @@ public class Theme {
     private LocalDateTime updatedAt;
 
     public Theme() {
+        this.abonnes = new ArrayList<>();
+        this.articles = new ArrayList<>();
     }
 
     @JsonProperty("abonnes")

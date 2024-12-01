@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -47,12 +48,18 @@ public class User {
     private LocalDateTime updatedAt;
 
     public User(String name, String email, String password) {
+        this.abonnements = new ArrayList<>();
+        this.commentaires = new ArrayList<>();
+        this.articles = new ArrayList<>();
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
     public User() {
+        this.abonnements = new ArrayList<>();
+        this.commentaires = new ArrayList<>();
+        this.articles = new ArrayList<>();
     }
 
     public void addArticle(Article article) {
