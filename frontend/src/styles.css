@@ -2,3 +2,14 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.custom-button{
+  background-color: rgba(102, 51, 153, 0.79) !important;
+  color: white !important;
+}
+
+.custom-button:disabled{
+  background-color: lightgray !important;
+  color: white !important;
+}
+

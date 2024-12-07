@@ -1,6 +1,6 @@
 <header>
   <a id="arrow_back" routerLink="/articles">←</a>
-  <p>{{ article.titre }}</p>
+  <p data-testid="article-titre">{{ article.titre }}</p>
 </header>
 <main class="article-container">
   <div class="article-subtitle">
@@ -38,7 +38,7 @@
           <mat-icon>send</mat-icon>
         </button>
       </mat-form-field>
-      <button mat-icon-button color="primary" type="submit" [disabled]="commentForm.invalid">
+      <button data-testid="send-button" mat-icon-button color="primary" type="submit" [disabled]="commentForm.invalid">
         <mat-icon>send</mat-icon>
       </button>
     </form>

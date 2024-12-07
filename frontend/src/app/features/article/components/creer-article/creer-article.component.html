@@ -13,7 +13,11 @@
         <!-- Theme field -->
         <mat-form-field appearance="outline" class="form-field">
           <mat-label>Sélectionner un thème</mat-label>
-          <input matInput formControlName="theme">
+          <mat-select formControlName="theme">
+            @for (theme of themes; track theme.id) {
+              <mat-option [value]="theme.titre">{{ theme.titre }}</mat-option>
+            }
+          </mat-select>
           @if (articleForm.get('theme')?.hasError('required') && articleForm.get('theme')?.touched) {
             <mat-error>
               Le thème est requis
@@ -43,7 +47,7 @@
           }
         </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit" [disabled]="articleForm.invalid">
+        <button mat-raised-button class="custom-button" type="submit" [disabled]="articleForm.invalid">
           Créer
         </button>
       </form>

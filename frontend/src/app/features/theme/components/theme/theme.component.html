@@ -11,9 +11,9 @@
         </mat-card-content>
         <mat-card-actions>
           @if (url === '/themes'){
-            <button (click)="onSubscribe(theme.id)" mat-button>S'abonner</button>
+            <button (click)="onSubscribe(theme.id)"  class="custom-button" mat-button>S'abonner</button>
           } @else {
-            <button (click)="onUnsubscribe(theme.id)" mat-button>Se désabonner</button>
+            <button (click)="onUnsubscribe(theme.id)" class="custom-button" mat-button>Se désabonner</button>
           }
         </mat-card-actions>
       </mat-card>
